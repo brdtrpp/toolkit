@@ -1,0 +1,33 @@
+<template name="basicWizard">
+  {{> wizard id="basic-wizard" steps=steps}}
+</template>
+
+<template name="setupStepOne">
+  {{#autoForm schema=schema doc=data id="setup-step-one-form"}}
+
+    {{> afQuickField name="name"}}
+
+    {{> afQuickField name="appName"}}
+
+    {{> afQuickField name="driver"}}
+
+    {{> afQuickField name="currentName"}}
+
+    {{> afQuickField name="futureName"}}
+
+    <button type="submit" class="btn btn-success btn-lg pull-right">Next</button>
+
+  {{/autoForm}}
+</template>
+
+<template name="setupStepTwo">
+  {{#autoForm schema=schema doc=data id="setup-step-two-form"}}
+
+    {{> afQuickField name="timeperiod"}}
+
+    {{> afQuickField name="activities"}}
+
+    <button type="submit" class="btn btn-success btn-lg pull-right">Calculate</button>
+
+  {{/autoForm}}
+</template>

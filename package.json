@@ -1,0 +1,11 @@
+{
+  "name": "toolkit",
+  "private": true,
+  "scripts": {
+    "start": "meteor --port 0.0.0.0:3000"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "meteor-node-stubs": "~0.2.0"
+  }
+}
