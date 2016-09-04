@@ -12,16 +12,6 @@ Schema.process = new SimpleSchema({
     max: 75
   },
 
-  driver: {
-    type: String,
-    label: "Who pays for the application under review?"
-  },
-
-  timeperiod: {
-    type: String,
-    label: "What is the time period under review?",
-  },
-
   currentName: {
     type: String,
     label: "What is the name of the CURRENT STATE item (product or service) under review?"
@@ -33,8 +23,19 @@ Schema.process = new SimpleSchema({
     maxCount: 3
   },
 
-
 });
+
+Schema.driver = new SimpleSchema({
+   driver: {
+    type: String,
+    label: "Who pays for the application under review?"
+  },
+
+  timeperiod: {
+    type: String,
+    label: "What is the time period under review?",
+  },
+})
 
 
 Schema.activity = new SimpleSchema({
@@ -55,22 +56,32 @@ Schema.activity = new SimpleSchema({
 });
 
 Template.basicWizard.helpers({
+  btnClass: function() {
+    return "btn btn-success btn-block";
+  },
   steps: function() {
-    var futureState = [];
     var steps = [{
       id: 'process',
       title: 'Add Process',
-      buttonClasses: "btn btn-primary",
       schema: Schema.process,
       onSubmit: function(data, wizard) {
         _.map(data.futureName, function(future) {
-          futureState.push(future);
-        })
-        console.log(wizard);
+          steps.push({
+            id: "activity" + future,
+            title: "Add " + future + " Activities",
+            schema: Schema.activity
+          });
+        });
+        console.log(steps);
+        wizard.next();
       }
     }, {
-      id: "activity",
-      title: "Add Activities",
+      id: "driver",
+      title: "Add Time",
+      schema: Schema.driver
+    }, {
+      id: "currentActivity",
+      title: "Add Current Activities",
       schema: Schema.activity
     }];
 
@@ -78,3 +89,16 @@ Template.basicWizard.helpers({
   }
 });
 
+Template.steps_bootstrap3.helpers({
+    stepClass: function (id) {
+        var activeStep = this.wizard.activeStep();
+        var step = this.wizard.getStep(id);
+        if (activeStep && activeStep.id === id) {
+            return 'primary';
+        }
+        if (step.data()) {
+            return 'success';
+        }
+        return 'default';
+    }
+});
