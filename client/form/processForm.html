@@ -4,8 +4,32 @@
 
 <template name="steps_bootstrap3">
   <div class="btn-group btn-group-sm" role="group" aria-label="...">
-    {{#each wizard.steps}}
-      <button type="button" class="btn btn-{{stepClass}}">{{title}}</button>
-    {{/each}}
+<!--     {{stepClass}} -->
+    <ol class="breadcrumb">
+      {{#each wizard.steps}}
+        <li><a>{{title}}</a></li>
+      {{/each}}
+    </ol>
   </div>
+</template>
+
+<template name='driver'>
+  {{#autoForm id="driver-form" doc=step.data schema=step.schema}}
+
+    {{> afQuickField name="driver"}}
+    {{> afQuickField name="timeperiod"}}
+
+    <button type="button" class="btn btn-success btn-block backward">Back</button>
+    <button type="submit" class="btn btn-success btn-block forward">Next</button>
+  {{/autoForm}}
+</template>
+
+<template name="activities">
+  <h3 align='center'>{{wizard._activeStepId}}</h3>
+  {{#autoForm id="activity-form" doc=step.data schema=step.schema}}
+
+    {{> afQuickField name="activities"}}
+    <button type="button" class="btn btn-success btn-block backward">Back</button>
+    <button type="submit" class="btn btn-success btn-block forward">Next</button>
+  {{/autoForm}}
 </template>

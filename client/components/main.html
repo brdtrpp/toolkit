@@ -1,14 +1,6 @@
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TCO Toolkit</title>
-</head>
-
-<body>
-  {{> navbar}}
-  <div class='container'>
-    {{> basicWizard}}
-<!--{{> quickForm collection="Processes" id="insertProcess" type="insert"}} -->
-  </div>
-</body>
+<template name='layout'>
+  <body>
+    {{> navbar}}
+    {{> yield}}
+  </body>
+</template>

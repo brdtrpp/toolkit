@@ -29,3 +29,4 @@ aldeed:simple-schema
 aldeed:autoform
 forwarder:autoform-wizard
 underscore
+iron:router

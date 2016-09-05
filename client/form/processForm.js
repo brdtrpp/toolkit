@@ -39,6 +39,12 @@ Schema.driver = new SimpleSchema({
 
 
 Schema.activity = new SimpleSchema({
+  activities: {
+    type: [Object],
+    minCount: 1,
+    maxCount: 8
+  },
+
   "activities.$.name": {
     type: String,
     label: "What is the name of this Activity?"
@@ -56,6 +62,8 @@ Schema.activity = new SimpleSchema({
 });
 
 Template.basicWizard.helpers({
+  clearOnDestroy: true,
+
   btnClass: function() {
     return "btn btn-success btn-block";
   },
@@ -65,24 +73,59 @@ Template.basicWizard.helpers({
       title: 'Add Process',
       schema: Schema.process,
       onSubmit: function(data, wizard) {
+        var end = steps.length - 1;
         _.map(data.futureName, function(future) {
-          steps.push({
-            id: "activity" + future,
+
+          var id = future;
+          var Wizard = wizard;
+
+          var activityFuture = {
+            id: id,
             title: "Add " + future + " Activities",
-            schema: Schema.activity
-          });
+            schema: Schema.activity,
+            template: 'activities',
+            formId: 'activity-form',
+            wizard: Wizard,
+            onSubmit: function(data, wizard) {
+              wizard.next(data);
+            },
+          };
+
+          var stepId = {
+            [id] : activityFuture,
+          };
+
+
+          console.log(id);
+          // Push to second to last in array
+          steps.splice(end, 0 , activityFuture);
+
+          // Add it to the wizard
+          wizard._stepsByIndex.splice(end, 0, id);
+          $.extend(wizard._stepsById, stepId);
+
         });
-        console.log(steps);
-        wizard.next();
+        console.log(wizard);
+        wizard.next(data);
       }
     }, {
       id: "driver",
       title: "Add Time",
-      schema: Schema.driver
+      schema: Schema.driver,
+      template: 'driver',
+      formId: 'driver-form',
     }, {
       id: "currentActivity",
       title: "Add Current Activities",
-      schema: Schema.activity
+      schema: Schema.activity,
+      template: 'activities',
+      formId: 'activity-form',
+      onSubmit: function(data, wizard) {
+        console.log(wizard);
+        wizard.next(data);
+        console.log("TOASTER");
+//         Router.go('/');
+      }
     }];
 
     return steps;
@@ -90,14 +133,17 @@ Template.basicWizard.helpers({
 });
 
 Template.steps_bootstrap3.helpers({
-    stepClass: function (id) {
-        var activeStep = this.wizard.activeStep();
-        var step = this.wizard.getStep(id);
+    stepClass: function () {
+        var activeStep = this.wizard._activeStepId;
+        var id = this.wizard.steps;
+        console.log(activeStep);
+        console.log(id);
+
         if (activeStep && activeStep.id === id) {
-            return 'primary';
+          return 'primary';
         }
         if (step.data()) {
-            return 'success';
+          return 'success';
         }
         return 'default';
     }
