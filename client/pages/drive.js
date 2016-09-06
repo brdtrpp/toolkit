@@ -1,12 +1,12 @@
-Template.driver.events({
-  'click .toaster' : function(e, template){
-    e.preventDefault();
-    this.wizard.next();
-  },
+Template.drivers.helpers({
+  drivers: function() {
+    return Drivers.find().fetch();
+  }
+});
 
-  'click .backward' : function(e, template){
-    e.preventDefault();
-    this.wizard.previous();
+Template.addDriver.helpers({
+  drivers: function() {
+    return Drivers.find().fetch();
   }
 });
 
@@ -20,4 +20,4 @@ Template.activities.events({
     e.preventDefault();
     this.wizard.previous();
   }
-})
+});

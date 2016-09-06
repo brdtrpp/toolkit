@@ -1,7 +1,24 @@
 Processes = new Mongo.Collection("processes");
 
-// Define the schema
+if (Meteor.isServer) {
+ Meteor.publish('processes', function() {
+    return Processes.find({owner: this.userId});
+  });
+}
+
+// Define the schema for processes
 ProcessSchema = new SimpleSchema({
+  owner: {
+    type: String,
+    autoValue: function() {
+      console.log(this.userId);
+      return this.userId;
+    },
+    autoform: {
+      omit: true,
+    }
+  },
+
   name: {
     type: String,
     label: "What is the name of the process under review?",
@@ -16,7 +33,35 @@ ProcessSchema = new SimpleSchema({
 
   driver: {
     type: String,
-    label: "Who pays for the application under review?"
+    label: "Who pays for the application under review?",
+    autoform: {
+      type: "select",
+      options: function () {
+        var a = [];
+
+        if (Meteor.isServer) {
+          var ds = Drivers.find({owner: this.userId}).fetch();
+          _.map(ds, function(i){
+            a.push(i.driver);
+          })
+        } else {
+          var dc = Drivers.find({owner: Meteor.userId()}).fetch();
+          _.map(dc, function(i){
+            a.push(i.driver);
+          })
+        }
+        return _.map(a, function (c) {
+
+          return {label: c, value: c};
+
+        });
+      }
+    }
+  },
+
+  timeperiod: {
+    type: String,
+    label: "What is the time period under review?",
   },
 
   currentName: {
@@ -24,44 +69,12 @@ ProcessSchema = new SimpleSchema({
     label: "What is the name of the CURRENT STATE item (product or service) under review?"
   },
 
-  futureName: {
-    type: [String],
-    label: "What is the name of the FUTURE STATE item (product or service) under review?",
-    maxCount: 3
-  },
-
-   timeperiod: {
-    type: String,
-    label: "What is the time period under review?",
-  },
-
-  activities: {
-    type: [Object],
-    label: "Actvities (max 8)",
-    minCount: 1,
-    maxCount: 8
-  },
-
-  "activities.$.name": {
-    type: String,
-    label: "What is the name of this Activity?"
-  },
-
-  "activities.$.time": {
-    type: Number,
-    label: "What is the # of times this activity occurs per TIME Period?"
-  },
-
-  "activities.$.percent": {
-    type: Number,
-    label: "What % of the time does the occurance of this activity cause downtime?"
-  },
-
-  "activities.$.subactivities.$.name": {
-    type: String,
-    maxCount: 12,
-    minCount: 1
-  },
+//   futureName: {
+//     type: FutureSchema,
+//     label: "Future States",
+//     maxCount: 3,
+//     minCount: 1
+//   },
 
 });
 

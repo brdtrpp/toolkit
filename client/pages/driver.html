@@ -1,0 +1,20 @@
+<template name='addDriver'>
+  <div class="container">
+    <h2>Add Driver</h2>
+    {{> quickForm collection="Drivers" id="insertDriverForm" type="insert"}}
+    <h3>Drivers</h3>
+    <ul>
+      {{#each drivers}}
+        <li><h4>{{driver}}</h4></li>
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name='drivers'>
+  <ul>
+  {{#each drivers}}
+    <li><h4>{{driver}}</h4></li>
+  {{/each}}
+  </ul>
+</template>

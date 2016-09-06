@@ -1,5 +1,9 @@
 <template name='home'>
   <div class='container'>
-    <h2>Home</h2>
+    {{#if currentUser}}
+      <h3>Home</h3>
+    {{else}}
+      {{> atForm}}
+    {{/if}}
   </div>
 </template>

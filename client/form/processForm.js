@@ -73,38 +73,39 @@ Template.basicWizard.helpers({
       title: 'Add Process',
       schema: Schema.process,
       onSubmit: function(data, wizard) {
-        var end = steps.length - 1;
-        _.map(data.futureName, function(future) {
+//         var end = steps.length - 1;
+//         _.map(data.futureName, function(future) {
 
-          var id = future;
-          var Wizard = wizard;
+//           var id = future;
+//           var Wizard = wizard;
 
-          var activityFuture = {
-            id: id,
-            title: "Add " + future + " Activities",
-            schema: Schema.activity,
-            template: 'activities',
-            formId: 'activity-form',
-            wizard: Wizard,
-            onSubmit: function(data, wizard) {
-              wizard.next(data);
-            },
-          };
+//           var activityFuture = {
+//             toaster: "TOASTER",
+//             id: id,
+//             title: "Add " + future + " Activities",
+//             schema: Schema.activity,
+//             template: 'activities',
+//             formId: 'activity-form',
+//             wizard: Wizard,
+//             onSubmit: function(data, wizard) {
+//               wizard.next(data);
+//             },
+//           };
 
-          var stepId = {
-            [id] : activityFuture,
-          };
+//           var stepId = {
+//             [id] : activityFuture,
+//           };
 
 
-          console.log(id);
-          // Push to second to last in array
-          steps.splice(end, 0 , activityFuture);
+//           console.log(id);
+//           // Push to second to last in array
+//           steps.splice(end, 0 , activityFuture);
 
-          // Add it to the wizard
-          wizard._stepsByIndex.splice(end, 0, id);
-          $.extend(wizard._stepsById, stepId);
+//           // Add it to the wizard
+//           wizard._stepsByIndex.splice(end, 0, id);
+//           $.extend(wizard._stepsById, stepId);
 
-        });
+//         });
         console.log(wizard);
         wizard.next(data);
       }
@@ -114,6 +115,12 @@ Template.basicWizard.helpers({
       schema: Schema.driver,
       template: 'driver',
       formId: 'driver-form',
+      onSubmit: function(data, wizard) {
+        console.log(wizard);
+        wizard.next(data);
+        console.log("TOASTER");
+        //         Router.go('/');
+      }
     }, {
       id: "currentActivity",
       title: "Add Current Activities",
