@@ -1,0 +1,75 @@
+<template name='processes'>
+  <div class='container'>
+    <div class='row'>
+      <h2 align='center'>Processes</h2>
+
+      <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseProcess" aria-expanded="false" aria-controls="collapseProcess">
+        Add Processes
+      </button>
+    </div>
+    <div class="collapse" id="collapseProcess">
+      {{> quickForm collection="Processes" id="insertProcessForm" type="insert"}}
+    </div>
+
+    <ul class="list-group">
+    {{#each processes}}
+      <a href="/processes/{{_id}}" class="list-group-item">{{name}}</a>
+    {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name='process'>
+  <div class='container'>
+    <div class='row'>
+      <h2 align='center'>{{name}}</h2>
+      <h4>Application Name: {{appName}}</h4>
+      <h4>Driver:
+         <!-- Single button -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{driverName}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              {{#each drivers}}
+                <li role="presentation" class={{driverState}}><a class='driver'>{{driver}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+      </h4>
+      <h4>Timeperiod: {{timeperiod}}</h4>
+    </div>
+    <div class='row'>
+      <h3>Activities</h3>
+      {{#each activity}}
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{name}} - <small>{{state}}</small></h3>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              {{#each activities}}
+              <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading">{{name}} - <small> {{percent}}% </small></h4>
+                <p class="list-group-item-text">{{time}}</p>
+                {{#each subactivities}}
+                  {{name}}
+                  {{rate}}
+                {{/each}}
+              </a>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <a class="btn btn-primary btn-block" role="button" data-toggle="collapse" href="#collapseAct" aria-expanded="false" aria-controls="collapseAct">
+      Add Activities
+    </a>
+    <div class="collapse" id="collapseAct">
+      {{> quickForm collection="Activities" id="insertActivitiesForm" type="insert"}}
+    </div>
+
+  </div>
+</template>

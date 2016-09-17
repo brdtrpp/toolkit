@@ -12,9 +12,18 @@
 </template>
 
 <template name='drivers'>
-  <ul>
-  {{#each drivers}}
-    <li><h4>{{driver}}</h4></li>
-  {{/each}}
-  </ul>
+  <div class='container'>
+    <h2 align='center'>Drivers</h2>
+     <ul class="list-group">
+    {{#each drivers}}
+      <a href="/drivers/{{_id}}" class="list-group-item">{{driver}}</a>
+    {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name='driver'>
+  <div class='container'>
+    <h2 align='center'>{{driver}}</h2>
+  </div>
 </template>
