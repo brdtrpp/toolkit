@@ -20,34 +20,42 @@ SubactivitiesSchema = new SimpleSchema({
       omit: true,
     }
   },
-  
+
   name: {
     type: String,
     label: "What are the names of the subactivities that make up the parent activity?"
   },
-  
+
   duration: {
     type: Number,
     label: "How Long Does it take?"
   },
-  
+
   downtime: {
     type: Boolean,
-    label: "Do the minutes contribute to Downtime?"
+    label: "Do the minutes contribute to Downtime?",
+    autoform: {
+    afFieldInput: {
+      type: "boolean-radios",
+
+    }
+  }
   },
-  
+
   rate: {
     type: Number,
     label: "Labor Rate $/hr"
   },
-  
+
   people: {
     type: Number,
     label: "Number of People"
   },
-  
+
   consumable: {
     type: Number,
     label: "Consumables Cost"
   }
 });
+
+Subactivity.attachSchema(SubactivitiesSchema);

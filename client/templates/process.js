@@ -31,10 +31,33 @@ Template.process.helpers({
     return dr.driver;
   },
 
+  subactcount: function() {
+    var a = Subactivity.find({activity: this._id}).count();
+    return a;
+  },
+
+  sub : function(){
+    var s = Subactivity.find({activity: this._id}).fetch();
+    console.log(s);
+    return s;
+  }
+
 });
 
 Template.process.events({
   'click .driver' : function() {
     Session.set('driver', this._id);
   },
+
+  'click .sub' : function() {
+    Session.set('activity', this._id);
+  },
+
+  'click .clone': function() {
+    var doc = {};
+    doc.d = Session.get('driver');
+    doc.p = Session.get('process');
+    doc.s = "current";
+    Meteor.call('copyActivity', doc);
+  }
 })

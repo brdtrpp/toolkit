@@ -4,12 +4,6 @@ Template.drivers.helpers({
   }
 });
 
-Template.addDriver.helpers({
-  drivers: function() {
-    return Drivers.find().fetch();
-  }
-});
-
 // Template.activities.events({
 //   'click .toaster' : function(e, template){
 //     e.preventDefault();

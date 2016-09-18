@@ -27,6 +27,7 @@ ProcessSchema = new SimpleSchema({
     max: 75
   },
 
+// Removed Driver From the process collection.
 //   driver: {
 //     type: String,
 //     label: "Who pays for the application under review?",

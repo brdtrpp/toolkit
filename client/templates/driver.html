@@ -1,23 +1,12 @@
-<template name='addDriver'>
+<template name='drivers'>
   <div class="container">
     <h2>Add Driver</h2>
     {{> quickForm collection="Drivers" id="insertDriverForm" type="insert"}}
     <h3>Drivers</h3>
-    <ul>
+    <ul  class="list-group">
       {{#each drivers}}
-        <li><h4>{{driver}}</h4></li>
+        <a href="/drivers/{{_id}}" class="list-group-item">{{driver}}</a>
       {{/each}}
-    </ul>
-  </div>
-</template>
-
-<template name='drivers'>
-  <div class='container'>
-    <h2 align='center'>Drivers</h2>
-     <ul class="list-group">
-    {{#each drivers}}
-      <a href="/drivers/{{_id}}" class="list-group-item">{{driver}}</a>
-    {{/each}}
     </ul>
   </div>
 </template>

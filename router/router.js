@@ -19,10 +19,6 @@ Router.route('/processes', function() {
   this.render('processes');
 });
 
-Router.route('/addDriver', function(){
-  this.render('addDriver');
-});
-
 Router.route('/drivers', function(){
   this.render('drivers');
 });
