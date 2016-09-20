@@ -9,7 +9,6 @@ Meteor.methods({
       process: a.process,
       driver: a.driver,
     });
-    console.log(na);
     var subs = Subactivity.find({activity: a._id}).fetch()
     _.forEach(subs, function(sub){
       Subactivity.insert({

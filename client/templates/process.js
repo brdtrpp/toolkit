@@ -5,10 +5,22 @@ Template.processes.helpers({
 });
 
 Template.process.helpers({
+  current: function() {
+    var id = Session.get('process');
+    var dr = Session.get('driver');
+    var act = Activities.find({process: id, driver: dr, state: "current"}).count();
+    if (act == 1) {
+      return "";
+    } else {
+      return "disabled";
+    }
+  },
+
   activity: function() {
     const id = Session.get('process');
     const dr = Session.get('driver');
-    const act = Activities.find({process: id, driver: dr}).fetch();
+    const app = Session.get('app');
+    const act = Activities.find({process: id, driver: dr, app: app}).fetch();
     return act
   },
 
@@ -36,11 +48,15 @@ Template.process.helpers({
     return a;
   },
 
-  sub : function(){
-    var s = Subactivity.find({activity: this._id}).fetch();
-    console.log(s);
-    return s;
-  }
+  app: function (){
+    var a = Session.get('app');
+    return a;
+  },
+
+  state: function(){
+    var a = Session.get('app');
+    
+  },
 
 });
 
@@ -59,5 +75,12 @@ Template.process.events({
     doc.p = Session.get('process');
     doc.s = "current";
     Meteor.call('copyActivity', doc);
+  },
+
+  'click .glyphicon-trash' : function() {
+  },
+
+  'click .app': function() {
+    var a = Session.set('app', this.name);
   }
 })

@@ -28,21 +28,35 @@ ActivitiesSchema = new SimpleSchema({
     }
   },
 
-  name: {
+  app: {
     type: String,
-    label: "What is the name of this Activity?"
+    autoform: {
+      omit: true,
+    }
   },
 
   state: {
     type: String,
     autoform: {
-      type: "select",
-      options: [
-        {label: "Current", value: "current"},
-        {label: "Future", value: "future"},
-      ]
+      omit: true,
     }
   },
+
+  name: {
+    type: String,
+    label: "What is the name of this Activity?"
+  },
+
+//   state: {
+//     type: String,
+//     autoform: {
+//       type: "select",
+//       options: [
+//         {label: "Current", value: "current"},
+//         {label: "Future", value: "future"},
+//       ]
+//     }
+//   },
 
   times: {
     type: Number,

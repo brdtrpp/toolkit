@@ -21,11 +21,27 @@ ProcessSchema = new SimpleSchema({
     max: 75
   },
 
-  appName: {
+  app: {
+    type: [Object],
+    label: "What applications are in this Process?",
+    minCount: 1,
+    maxCount: 4
+    },
+  "app.$.name": {
     type: String,
-    label: "What application, within the Process is under review?",
-    max: 75
   },
+
+//   app: {
+//     type: [Object],
+//     max: 75,
+//     minCount: 1,
+//     maxCount: 10
+//   },
+
+//   "app.$.name": {
+//     type: String,
+//     label: "What applications are in this Process?",
+//   }
 
 // Removed Driver From the process collection.
 //   driver: {

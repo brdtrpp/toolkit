@@ -6,6 +6,7 @@ AutoForm.hooks({
         // Potentially alter the doc
         doc.process = Session.get('process');
         doc.driver = Session.get('driver');
+        doc.app = Session.get('app');
 //         console.log(doc);
         return doc;
 

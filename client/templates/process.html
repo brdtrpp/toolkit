@@ -2,7 +2,7 @@
   <div class='container'>
     <h2 align='center'>Processes</h2>
 
-    <a class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseProcess" aria-expanded="false" aria-controls="collapseProcess">
+    <a class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#collapseProcess" aria-expanded="false" aria-controls="collapseProcess">
       Add Processes
     </a>
 
@@ -20,9 +20,22 @@
 
 <template name='process'>
   <div class='container'>
-
-      <h2 align='center'>{{name}}</h2>
-      <h4>Application Name: {{appName}}</h4>
+    <div class="page-header">
+      <h1>{{name}}</h1>
+    </div>
+      <h4>Application Name:
+        <!-- Single button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{app}} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            {{#each this.app}}
+              <li><a class='app'>{{name}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+      </h4>
       <h4>Driver:
          <!-- Single button -->
           <div class="btn-group">
@@ -38,49 +51,27 @@
       </h4>
       <h4>Timeperiod: {{timeperiod}}</h4>
 
-
-      <h3>Activities</h3>
-      {{#each activity}}
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <h2 class="panel-title"><span class="badge">{{subactcount}}</span> {{name}} - <small>{{state}}</small></h2>
-          </div>
-          <div class="panel-body">
-            <div class="list-group">
-              {{#each sub}}
-                <a href="#" class="list-group-item">
-                  <h4 class="list-group-item-heading">{{name}}</h4>
-                  <p class="list-group-item-text">...</p>
-                </a>
-              {{/each}}
-              <a role='button' class='btn btn-success btn-block sub' data-toggle="modal" data-target="#myModal">Add Subactivity</a>
-            </div>
-          </div>
+      <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <h2 class="panel-title">Current</h2>
         </div>
-      {{/each}}
-
-    <a class='btn btn-warning clone' role='button'>Add</a>
-    <a class="btn btn-primary btn-block" role="button" data-toggle="collapse" href="#collapseAct" aria-expanded="false" aria-controls="collapseAct">
-      Add Activity
-    </a>
-    <div class="collapse" id="collapseAct">
-      {{> quickForm collection="Activities" id="insertActivitiesForm" type="insert"}}
-    </div>
-
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add Subactivity</h4>
+        <div class="panel-body">
+          <p>...</p>
         </div>
-        <div class="modal-body">
-          {{> quickForm collection="Subactivity" id="insertSubactivityForm" type="insert"}}
-        </div>
+        <!-- List group -->
+        <ul class="list-group">
+          {{#each activity}}
+            {{> activityItem}}
+          {{/each}}
+        </ul>
+        <a role='button' class='btn btn-success btn-block sub' data-toggle="modal" data-target="#addAct">
+          Add Activity <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </a>
       </div>
-    </div>
+    <a class='btn btn-warning clone btn-block {{current}}' role='button'>Clone Current</a>
+
   </div>
+
+
 </template>

@@ -55,6 +55,16 @@ SubactivitiesSchema = new SimpleSchema({
   consumable: {
     type: Number,
     label: "Consumables Cost"
+  },
+  
+  itemCost: {
+    type: Number,
+    label: "Cost of Items"
+  },
+  
+  itemNum: {
+    type: Number,
+    label: "Number of Items"
   }
 });
 
