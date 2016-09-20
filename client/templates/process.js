@@ -16,14 +16,6 @@ Template.process.helpers({
     }
   },
 
-  activity: function() {
-    const id = Session.get('process');
-    const dr = Session.get('driver');
-    const app = Session.get('app');
-    const act = Activities.find({process: id, driver: dr, app: app}).fetch();
-    return act
-  },
-
   drivers: function() {
     var d = Drivers.find().fetch();
     return d;
@@ -44,8 +36,8 @@ Template.process.helpers({
   },
 
   subactcount: function() {
-    var a = Subactivity.find({activity: this._id}).count();
-    return a;
+    var s = Subactivity.find({activity: this._id}).count();
+    return s;
   },
 
   app: function (){
@@ -53,9 +45,16 @@ Template.process.helpers({
     return a;
   },
 
-  state: function(){
+  states: function(){
     var a = Session.get('app');
-    
+    var d = Session.get('driver');
+    var p = Session.get('process');
+    var s = State.find({
+      driver: d,
+      process: p,
+      app: a,
+    }).fetch();
+    return s;
   },
 
 });
@@ -82,5 +81,6 @@ Template.process.events({
 
   'click .app': function() {
     var a = Session.set('app', this.name);
-  }
+  },
+
 })

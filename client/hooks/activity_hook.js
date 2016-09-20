@@ -4,10 +4,12 @@ AutoForm.hooks({
     // Replace `formType` with the form `type` attribute to which this hook applies
       insert: function(doc) {
         // Potentially alter the doc
-        doc.process = Session.get('process');
-        doc.driver = Session.get('driver');
-        doc.app = Session.get('app');
+//         doc.driver = Session.get('driver');
+//         doc.app = Session.get('app');
 //         console.log(doc);
+        doc.state = Session.get('state');
+        $('#addAct').modal('hide');
+        sAlert.success(doc.name + ' Successfully Added');
         return doc;
 
         // Then return it or pass it to this.result()

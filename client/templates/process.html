@@ -23,52 +23,41 @@
     <div class="page-header">
       <h1>{{name}}</h1>
     </div>
-      <h4>Application Name:
-        <!-- Single button -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{app}} <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            {{#each this.app}}
-              <li><a class='app'>{{name}}</a></li>
-            {{/each}}
-          </ul>
-        </div>
-      </h4>
-      <h4>Driver:
-         <!-- Single button -->
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{driverName}} <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              {{#each drivers}}
-                <li role="presentation" class={{driverState}}><a class='driver'>{{driver}}</a></li>
-              {{/each}}
-            </ul>
-          </div>
-      </h4>
-      <h4>Timeperiod: {{timeperiod}}</h4>
-
-      <div class="panel panel-primary">
-        <!-- Default panel contents -->
-        <div class="panel-heading">
-          <h2 class="panel-title">Current</h2>
-        </div>
-        <div class="panel-body">
-          <p>...</p>
-        </div>
-        <!-- List group -->
-        <ul class="list-group">
-          {{#each activity}}
-            {{> activityItem}}
+    <h4>Application Name:
+      <!-- Single button -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{app}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {{#each this.app}}
+          <li><a class='app'>{{name}}</a></li>
           {{/each}}
         </ul>
-        <a role='button' class='btn btn-success btn-block sub' data-toggle="modal" data-target="#addAct">
-          Add Activity <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </a>
       </div>
+    </h4>
+    <h4>Driver:
+      <!-- Single button -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{driverName}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {{#each drivers}}
+          <li role="presentation" class={{driverState}}><a class='driver'>{{driver}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </h4>
+    <h4>Timeperiod: {{timeperiod}}</h4>
+
+    {{#each states}}
+      {{> state}}
+    {{/each}}
+    <a role='button' class='btn btn-success btn-block sub' data-toggle="modal" data-target="#addState">
+      Add State <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </a>
+    
     <a class='btn btn-warning clone btn-block {{current}}' role='button'>Clone Current</a>
 
   </div>

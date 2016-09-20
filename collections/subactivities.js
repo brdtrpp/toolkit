@@ -35,11 +35,11 @@ SubactivitiesSchema = new SimpleSchema({
     type: Boolean,
     label: "Do the minutes contribute to Downtime?",
     autoform: {
-    afFieldInput: {
-      type: "boolean-radios",
+      afFieldInput: {
+        type: "boolean-radios",
 
+      }
     }
-  }
   },
 
   rate: {

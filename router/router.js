@@ -7,6 +7,7 @@ Router.configure({
       Meteor.subscribe('processes'),
       Meteor.subscribe('activities'),
       Meteor.subscribe('subactivity'),
+      Meteor.subscribe('state'),
     ];
   }
 });

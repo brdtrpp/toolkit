@@ -1,11 +1,11 @@
 AutoForm.hooks({
-  insertSubactivityForm: {
+  insertStateForm:{
     before: {
       insert: function(doc){
-        var d = Session.get('driver');
-        var a = Session.get('activity');
-        doc.activity = a;
-        $('#addSub').modal('hide');
+        doc.driver = Session.get('driver');
+        doc.app = Session.get('app');
+        doc.process= Session.get('process');
+        $('#addState').modal('hide');
         sAlert.success(doc.name + ' Successfully Added');
         return doc;
       }
@@ -13,4 +13,4 @@ AutoForm.hooks({
     beginSubmit: function() {},
     endSubmit: function() {}
   }
-})
+});

@@ -14,27 +14,6 @@ ActivitiesSchema = new SimpleSchema({
     }
   },
 
-  driver: {
-    type: String,
-    autoform: {
-      omit: true,
-    }
-  },
-
-  process: {
-    type: String,
-    autoform: {
-      omit: true,
-    }
-  },
-
-  app: {
-    type: String,
-    autoform: {
-      omit: true,
-    }
-  },
-
   state: {
     type: String,
     autoform: {
@@ -46,17 +25,6 @@ ActivitiesSchema = new SimpleSchema({
     type: String,
     label: "What is the name of this Activity?"
   },
-
-//   state: {
-//     type: String,
-//     autoform: {
-//       type: "select",
-//       options: [
-//         {label: "Current", value: "current"},
-//         {label: "Future", value: "future"},
-//       ]
-//     }
-//   },
 
   times: {
     type: Number,

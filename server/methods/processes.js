@@ -21,6 +21,5 @@ Meteor.methods({
         rate: sub.rate
       });
     });
-
   }
 });
