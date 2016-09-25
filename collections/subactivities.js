@@ -56,15 +56,23 @@ SubactivitiesSchema = new SimpleSchema({
     type: Number,
     label: "Consumables Cost"
   },
-  
+
   itemCost: {
     type: Number,
     label: "Cost of Items"
   },
-  
+
   itemNum: {
     type: Number,
     label: "Number of Items"
+  },
+
+  rollup: {
+    type: Number,
+    decimal: true,
+    autoform: {
+      omit: true,
+    }
   }
 });
 

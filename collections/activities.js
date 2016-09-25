@@ -36,6 +36,14 @@ ActivitiesSchema = new SimpleSchema({
     label: "What % of the time does the occurance of this activity cause downtime?"
   },
 
+  rollup: {
+    type: Number,
+    decimal: true,
+    autoform: {
+      omit: true,
+    }
+  }
+
 });
 
 Activities.attachSchema(ActivitiesSchema);

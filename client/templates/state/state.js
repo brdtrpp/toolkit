@@ -6,6 +6,10 @@ Template.state.helpers({
     const act = Activities.find({state: this._id}).fetch();
     return act
   },
+  
+  rollupFormat: function() {
+    return this.rollup.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+  }
 });
 
 Template.state.events({

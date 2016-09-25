@@ -6,14 +6,15 @@ Template.processes.helpers({
 
 Template.process.helpers({
   current: function() {
-    var id = Session.get('process');
-    var dr = Session.get('driver');
-    var act = Activities.find({process: id, driver: dr, state: "current"}).count();
-    if (act == 1) {
-      return "";
-    } else {
-      return "disabled";
-    }
+//     var id = Session.get('process');
+//     var dr = Session.get('driver');
+//     var act = Activities.find({process: id, driver: dr, state: "current"}).count();
+//     if (act == 1) {
+//       return "";
+//     } else {
+//       return "disabled";
+//     }
+    return "";
   },
 
   drivers: function() {
@@ -72,8 +73,8 @@ Template.process.events({
     var doc = {};
     doc.d = Session.get('driver');
     doc.p = Session.get('process');
-    doc.s = "current";
-    Meteor.call('copyActivity', doc);
+    doc.a = Session.get('app');
+    Meteor.call('cloneCurrent', doc);
   },
 
   'click .glyphicon-trash' : function() {

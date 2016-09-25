@@ -42,6 +42,14 @@ StateSchema = new SimpleSchema({
   
   name: {
     type: String,
+  },
+  
+  rollup: {
+    type: Number,
+    decimal: true,
+    autoform: {
+      omit: true,
+    }
   }
 });
 

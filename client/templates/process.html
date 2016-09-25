@@ -31,7 +31,7 @@
         </button>
         <ul class="dropdown-menu">
           {{#each this.app}}
-          <li><a class='app'>{{name}}</a></li>
+          <li role="button"><a class='app'>{{name}}</a></li>
           {{/each}}
         </ul>
       </div>
@@ -44,20 +44,22 @@
         </button>
         <ul class="dropdown-menu">
           {{#each drivers}}
-          <li role="presentation" class={{driverState}}><a class='driver'>{{driver}}</a></li>
+          <li role="button" class={{driverState}}><a class='driver'>{{driver}}</a></li>
           {{/each}}
         </ul>
       </div>
     </h4>
     <h4>Timeperiod: {{timeperiod}}</h4>
-
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     {{#each states}}
       {{> state}}
     {{/each}}
+    </div>
+
     <a role='button' class='btn btn-success btn-block sub' data-toggle="modal" data-target="#addState">
       Add State <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </a>
-    
+
     <a class='btn btn-warning clone btn-block {{current}}' role='button'>Clone Current</a>
 
   </div>
