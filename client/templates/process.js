@@ -4,6 +4,70 @@ Template.processes.helpers({
   },
 });
 
+Template.process.onRendered(function(){
+  import Chart from 'chart.js';
+  var ctx = $("#myChart");
+
+  this.autorun(function(){
+    let app = Session.get('app');
+    let driver = Session.get('driver');
+
+    let dataset = [];
+
+    let s = State.find({app: app, driver: driver}).fetch();
+
+    _.forEach(s, function(i) {
+      dataset.push(i.rollup);
+    });
+
+    console.log(dataset);
+
+    var multiply = function(num) {
+      return num * Math.random();
+    }
+
+    var data = {
+      labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+      datasets: [
+        {
+          label: "My First dataset",
+          backgroundColor: "rgba(179,181,198,0.75)",
+          borderColor: "rgba(179,181,198,1)",
+          pointBackgroundColor: "rgba(179,181,198,1)",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(179,181,198,1)",
+          data: dataset.map(multiply),
+        },
+        {
+          label: "My Second dataset",
+          backgroundColor: "rgba(255,99,132,0.75)",
+          borderColor: "rgba(255,99,132,1)",
+          pointBackgroundColor: "rgba(255,99,132,1)",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(255,99,132,1)",
+          data: dataset.map(multiply),
+        }
+      ]
+    };
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero:true
+              }
+            }]
+          }
+        }
+    });
+  });
+});
+
 Template.process.helpers({
   current: function() {
 //     var id = Session.get('process');
