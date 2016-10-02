@@ -2,7 +2,8 @@
   "name": "toolkit",
   "private": true,
   "scripts": {
-    "start": "meteor --port 0.0.0.0:3000"
+    "start": "meteor --port 0.0.0.0:3000",
+    "production": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy toolkit.meteorapp.com --settings production-settings.json"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",

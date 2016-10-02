@@ -1,12 +1,44 @@
 <template name='state'>
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h2 class="panel-title">{{name}}-{{state}}<div class='pull-right'>${{rollupFormat}}</div></h2>
+      <h2 class="panel-title">
+        <!-- Small button group -->
+        <div class="btn-group">
+          <span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+          </span>
+          <ul class="dropdown-menu">
+            <li>
+              {{#afModal collection="State" operation="update" doc=_id}}
+                <a><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit State</a>
+              {{/afModal}}
+            </li>
+            <li>
+              {{#afModal collection="State" operation="remove" doc=_id}}
+                <a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete State</a>
+              {{/afModal}}
+            </li>
+          </ul>
+        </div>
+        {{name}}-{{state}}<div class='pull-right'>${{rollupFormat}}</div></h2>
     </div>
     {{#each activity}}
       {{> activityItem}}
     {{/each}}
 
     <a class='btn btn-info btn-block state' role='button' data-toggle="modal" data-target="#addAct">Add Activites to {{name}}</a>
+  </div>
+</template>
+
+<template name='stateMenu'>
+  <!-- Small button group -->
+  <div class="btn-group">
+    <span role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+    </span>
+    <ul class="dropdown-menu">
+      <li><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a></li>
+      <li><a><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</a></li>
+    </ul>
   </div>
 </template>

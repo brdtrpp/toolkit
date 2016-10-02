@@ -9,61 +9,68 @@ Template.process.onRendered(function(){
   var ctx = $("#myChart");
 
   this.autorun(function(){
-    let app = Session.get('app');
-    let driver = Session.get('driver');
-
+    const app = Session.get('app');
+    const driver = Session.get('driver');
+    const colors = [
+      {back: '#158cba', boarder: '#127ba3'},
+      {back: '#28b62c', boarder: '#23a127'},
+      {back: '#75caeb', boarder: '#5fc1e8'},
+      {back: '#ff851b', boarder: '#ff7701'},
+      {back: '#ff4136', boarder: '#ff291c'},
+      {back: '#eeeeee', boarder: '#e2e2e2'},
+    ]
     let dataset = [];
-
+    let l = [];
     let s = State.find({app: app, driver: driver}).fetch();
 
     _.forEach(s, function(i) {
-      dataset.push(i.rollup);
+      let getRandomColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+      let num = Math.floor((Math.random() * 10) + 1);
+      let a = Activities.find({state: i._id}).fetch();
+
+
+      let sdata = [];
+      // Define labels
+      _.forEach(a, function(as){
+        if ( !_.contains(l, as.name)) {
+          l.push(as.name);
+        }
+
+        let map = l.indexOf(as.name);
+        sdata.splice(map, 0, as.rollup);
+      });
+
+
+      let len = dataset.length;
+
+      dataset.push({
+        label: i.name + " " + i.state,
+        backgroundColor: colors[len].back,
+        borderColor: colors[len].boarder,
+        borderWidth: 2,
+        data: sdata,
+      });
+
     });
 
-    console.log(dataset);
-
-    var multiply = function(num) {
-      return num * Math.random();
-    }
 
     var data = {
-      labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-      datasets: [
-        {
-          label: "My First dataset",
-          backgroundColor: "rgba(179,181,198,0.75)",
-          borderColor: "rgba(179,181,198,1)",
-          pointBackgroundColor: "rgba(179,181,198,1)",
-          pointBorderColor: "#fff",
-          pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(179,181,198,1)",
-          data: dataset.map(multiply),
-        },
-        {
-          label: "My Second dataset",
-          backgroundColor: "rgba(255,99,132,0.75)",
-          borderColor: "rgba(255,99,132,1)",
-          pointBackgroundColor: "rgba(255,99,132,1)",
-          pointBorderColor: "#fff",
-          pointHoverBackgroundColor: "#fff",
-          pointHoverBorderColor: "rgba(255,99,132,1)",
-          data: dataset.map(multiply),
-        }
-      ]
+      labels: l,
+      datasets: dataset,
     };
 
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: data,
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero:true
-              }
-            }]
-          }
-        }
+//         options: {
+//           scales: {
+//             yAxes: [{
+//               ticks: {
+//                 beginAtZero:true
+//               }
+//             }]
+//           }
+//         }
     });
   });
 });

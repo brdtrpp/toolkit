@@ -16,4 +16,4 @@ Template.state.events({
   'click .state': function(){
     Session.set('state', this._id);
   }
-})
+});
