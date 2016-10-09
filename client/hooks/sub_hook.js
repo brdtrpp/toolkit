@@ -2,9 +2,9 @@ AutoForm.hooks({
   insertSubactivityForm: {
     before: {
       insert: function(doc){
-        var a = Session.get('activity');
+        let a = Session.get('activity');
         doc.activity = a;
-        var ru = ( doc.itemNum * doc.itemCost ) + doc.consumable + ( ( doc.duration / 60 ) * ( doc.rate * doc.people ) );
+        let ru = ( doc.itemNum * doc.itemCost ) + doc.consumable + ( ( doc.duration / 60 ) * ( doc.rate * doc.people ) );
         doc.rollup = ru;
         return doc;
       }
@@ -12,7 +12,7 @@ AutoForm.hooks({
 
     onSuccess: function(formType, result) {
       $('#addSub').modal('hide');
-      var doc = Subactivity.findOne({_id: result});
+      let doc = Subactivity.findOne({_id: result});
       console.log(doc);
       Meteor.call('actRollup', doc)
       sAlert.success(doc.name + ' Successfully Added');
