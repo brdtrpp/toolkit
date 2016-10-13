@@ -15,15 +15,39 @@ AutoForm.hooks({
       let doc = Subactivity.findOne({_id: result});
       console.log(doc);
       Meteor.call('actRollup', doc)
-      sAlert.success(doc.name + ' Successfully Added');
+      Bert.alert(doc.name + ' Successfully Added');
     },
 
     onError: function(formType, error) {
       $('#addSub').modal('hide');
-      sAlert.error('Something went wrong!');
+      Bert.alert('Something went wrong!', 'danger');
+    },
+
+    beginSubmit: function() {},
+    endSubmit: function() {}
+  },
+
+  updateSubactivityForm: {
+    before: {
+      update: function(doc){
+        let ru = ( doc.$set.itemNum * doc.$set.itemCost ) + doc.$set.consumable + ( ( doc.$set.duration / 60 ) * ( doc.$set.rate * doc.$set.people ) );
+        doc.$set.rollup = ru;
+//         sAlert.success('Successfully Updated');
+        return doc;
+      }
+    },
+
+    onSuccess: function(formType, result) {
+      let doc = Session.get('process');
+      Meteor.call('rollup', doc);
+      Bert.alert('Successfully Updated');
+    },
+
+    onError: function(formType, error) {
+      Bert.alert('Something went wrong!', 'danger');
     },
 
     beginSubmit: function() {},
     endSubmit: function() {}
   }
-})
+});

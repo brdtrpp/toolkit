@@ -14,7 +14,6 @@ Meteor.methods({
         activity: doc.na,
         rollup: item.rollup
       });
-    })
-
-  }
+    });
+  },
 })
