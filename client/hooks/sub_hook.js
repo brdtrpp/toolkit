@@ -2,10 +2,19 @@ AutoForm.hooks({
   insertSubactivityForm: {
     before: {
       insert: function(doc){
+        let p = Session.get('process');
+        let pdt = Processes.findOne({_id: p});
         let a = Session.get('activity');
         doc.activity = a;
-        let ru = ( doc.itemNum * doc.itemCost ) + doc.consumable + ( ( doc.duration / 60 ) * ( doc.rate * doc.people ) );
+        if (doc.downtime === true) {
+          let ru = ( doc.itemNum * doc.itemCost ) + doc.consumable + ( ( doc.duration / 60 ) * ( doc.rate * doc.people ) ) + ( ( doc.duration / 60 ) * pdt.downtime );
         doc.rollup = ru;
+        } else {
+          let ru = ( doc.itemNum * doc.itemCost ) + doc.consumable + ( ( doc.duration / 60 ) * ( doc.rate * doc.people ) );
+          doc.rollup = ru;
+        }
+
+
         return doc;
       }
     },
@@ -30,8 +39,15 @@ AutoForm.hooks({
   updateSubactivityForm: {
     before: {
       update: function(doc){
-        let ru = ( doc.$set.itemNum * doc.$set.itemCost ) + doc.$set.consumable + ( ( doc.$set.duration / 60 ) * ( doc.$set.rate * doc.$set.people ) );
-        doc.$set.rollup = ru;
+        let p = Session.get('process');
+        let pdt = Processes.findOne({_id: p});
+        if (doc.$set.downtime === true) {
+          let ru = ( doc.$set.itemNum * doc.$set.itemCost ) + doc.$set.consumable + ( ( doc.$set.duration / 60 ) * ( doc.$set.rate * doc.$set.people ) ) + ( ( doc.$set.duration / 60 ) * pdt.downtime );
+          doc.$set.rollup = ru;
+        } else {
+          let ru = ( doc.$set.itemNum * doc.$set.itemCost ) + doc.$set.consumable + ( ( doc.$set.duration / 60 ) * ( doc.$set.rate * doc.$set.people ) );
+          doc.$set.rollup = ru;
+        }
         return doc;
       }
     },
