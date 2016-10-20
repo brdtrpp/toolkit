@@ -10,7 +10,10 @@ Meteor.methods({
     var result = sum.reduce(function(a, b) {
       return a + b;
     }, 0);
-    State.update({_id: s._id}, {$set: {rollup: result}});
+    if (s.rollup !== result) {
+      State.update({_id: s._id}, {$set: {rollup: result}});
+    }
+    
   },
 
   'cloneCurrent' : function(doc){

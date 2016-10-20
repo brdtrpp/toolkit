@@ -6,12 +6,15 @@ Meteor.methods({
     _.forEach(s, function(p) {
       sum.push(p.rollup);
     });
-    var result = sum.reduce(function(a, b) {
+    var summation = sum.reduce(function(a, b) {
       return a + b;
     }, 0);
 
-
-    Activities.update({_id: a._id}, {$set: {rollup: result}});
+    let result = summation * a.times;
+    if (a.rollup !== result){
+      Activities.update({_id: a._id}, {$set: {rollup: result}});
+    }
+    
     var actId = a._id;
     Meteor.call('stateRollup', actId)
   },

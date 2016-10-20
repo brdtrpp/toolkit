@@ -13,8 +13,8 @@ AutoForm.hooks({
     onSuccess: function(formType, result) {
       $('#addSub').modal('hide');
       let doc = Subactivity.findOne({_id: result});
-      console.log(doc);
-      Meteor.call('actRollup', doc)
+      let proc = Session.get('process');
+      Meteor.call('rollup', proc);
       Bert.alert(doc.name + ' Successfully Added');
     },
 
@@ -32,7 +32,6 @@ AutoForm.hooks({
       update: function(doc){
         let ru = ( doc.$set.itemNum * doc.$set.itemCost ) + doc.$set.consumable + ( ( doc.$set.duration / 60 ) * ( doc.$set.rate * doc.$set.people ) );
         doc.$set.rollup = ru;
-//         sAlert.success('Successfully Updated');
         return doc;
       }
     },

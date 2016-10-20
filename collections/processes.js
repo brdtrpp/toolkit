@@ -74,7 +74,7 @@ ProcessSchema = new SimpleSchema({
 
   timeperiod: {
     type: Number,
-    label: "What is the time period under review?",
+    label: "What is the time period under review? (in minutes)",
   },
 
 //   currentName: {
