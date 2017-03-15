@@ -23,7 +23,7 @@ function myAdminHookFunction(){
 
 Router.onBeforeAction(myAdminHookFunction, {
   // only: ['/']
-  // except: ['/', '']
+  except: ['/', 'terms']
 });
 
 Router.route('/terms', function() {
