@@ -14,7 +14,7 @@ Router.configure({
 });
 
 function myAdminHookFunction(){
-  if(!Meteor.user) {
+  if(!Meteor.userId()) {
     this.redirect('/');
     // console.log('text');
   }
