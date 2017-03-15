@@ -13,17 +13,18 @@ Router.configure({
   },
 });
 
-function myAdminHookFunction(){
+function noId(){
+  Router.current().route.getName()
   if(!Meteor.userId()) {
-    this.redirect('/');
+    this.redirect('home');
     // console.log('text');
   }
   this.next();
 }
 
-Router.onBeforeAction(myAdminHookFunction, {
+Router.onBeforeAction(noId, {
   // only: ['/']
-  except: ['/', 'terms']
+  except: ['home', 'terms']
 });
 
 Router.route('/terms', function() {
@@ -32,6 +33,8 @@ Router.route('/terms', function() {
 
 Router.route('/', function() {
   this.render('home');
+},{
+  name: "home",
 });
 
 Router.route('/processes', function() {
