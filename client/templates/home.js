@@ -11,9 +11,8 @@ Template.home.onRendered( function() {
     _.forEach(states, function(state){
       data.push(state);
     });
-    
+
   });
-  console.log(data);
 
 
 

@@ -1,6 +1,7 @@
 Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'loading',
+  notFoundTemplate: '404',
   waitOn: function(){
     return [
       Meteor.subscribe('drivers'),
@@ -9,7 +10,24 @@ Router.configure({
       Meteor.subscribe('subactivity'),
       Meteor.subscribe('state'),
     ];
+  },
+});
+
+function myAdminHookFunction(){
+  if(!Meteor.user) {
+    this.redirect('/');
+    // console.log('text');
   }
+  this.next();
+}
+
+Router.onBeforeAction(myAdminHookFunction, {
+  // only: ['/']
+  // except: ['/', '']
+});
+
+Router.route('/terms', function() {
+  this.render('terms');
 });
 
 Router.route('/', function() {
@@ -33,12 +51,12 @@ Router.route('/drivers/:_id', {
     if ( Meteor.isClient ) {
       Session.set('driver', this.params._id);
       this.next();
-    };
+    }
   },
   onStop: function () {
     if ( Meteor.isClient ) {
       Session.set('driver', null);
-    };
+    }
   },
 });
 
@@ -51,11 +69,11 @@ Router.route('/processes/:_id', {
     if ( Meteor.isClient ) {
       Session.set('process', this.params._id);
       this.next();
-    };
+    }
   },
   onStop: function () {
     if ( Meteor.isClient ) {
       Session.set('process', null);
-    };
+    }
   },
 });
