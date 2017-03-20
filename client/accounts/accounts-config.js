@@ -51,3 +51,35 @@ AccountsTemplates.configure({
     //   },
     // },
 });
+
+AccountsTemplates.removeField('password');
+
+AccountsTemplates.addFields([
+    {
+        _id: 'firstName',
+        type: 'text',
+        required: true,
+        displayName: "First Name",
+    },
+    {
+        _id: 'lastName',
+        type: 'text',
+        required: true,
+        displayName: "Last Name",
+    },
+    {
+        _id: 'company',
+        type: 'text',
+        required: true,
+        displayName: "Company Name",
+    },
+    {
+      _id: 'password',
+      type: 'password',
+      required: true,
+      minLength: 6,
+      continuousValidation: true,
+      // re: /(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/,
+      errStr: 'At least 1 digit, 1 lower-case and 1 upper-case',
+    }
+]);
