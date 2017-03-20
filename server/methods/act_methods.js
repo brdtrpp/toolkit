@@ -1,5 +1,6 @@
 Meteor.methods({
   'actRollup' : function(doc){
+
     var a = Activities.findOne({_id: doc.activity});
     var s = Subactivity.find({activity: a._id}).fetch();
     var sum = [];
@@ -11,11 +12,18 @@ Meteor.methods({
     }, 0);
 
     let result = summation * a.times;
+    console.log(result);
     if (a.rollup !== result){
       Activities.update({_id: a._id}, {$set: {rollup: result}});
     }
 
     var actId = a._id;
+    Meteor.call('stateRollup', actId);
+  },
+
+  'actRollupNoSubs' : function(doc){
+    Activities.update({_id: doc._id}, {$set: {rollup: 0}});
+    let actId = doc._id;
     Meteor.call('stateRollup', actId);
   },
 

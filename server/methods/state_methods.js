@@ -13,7 +13,7 @@ Meteor.methods({
     if (s.rollup !== result) {
       State.update({_id: s._id}, {$set: {rollup: result}});
     }
-    
+
   },
 
   'cloneCurrent' : function(doc){

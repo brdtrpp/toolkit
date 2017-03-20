@@ -67,24 +67,12 @@ AutoForm.hooks({
   },
 
   removeSubactivityForm: {
-    after: {
-      remove: function(doc){
-        console.log('toaster');
-      }
-    },
 
-    onSubmit: function(insertDoc, updateDoc, currentDoc){
+    onRemoveSuccess: function(formType, result) {
       console.log('toaster');
-    },
-
-    onSuccess: function(formType, result) {
-      let doc = Session.get('process');
-      Meteor.call('rollup', doc);
-      Bert.alert('Successfully Updated');
-    },
-
-    onError: function(formType, error) {
-      Bert.alert('Something went wrong!', 'danger');
+      // let doc = Session.get('process');
+      // Meteor.call('rollup', doc);
+      // Bert.alert('Successfully Updated');
     },
 
     beginSubmit: function() {},

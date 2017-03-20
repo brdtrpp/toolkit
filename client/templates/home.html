@@ -3,7 +3,10 @@
     {{#if currentUser}}
       <h3>Home</h3>
     {{else}}
-      {{> atForm}}
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">{{> atForm}}</div>
+      </div>
+
     {{/if}}
   </div>
 </template>
