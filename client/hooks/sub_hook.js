@@ -64,5 +64,31 @@ AutoForm.hooks({
 
     beginSubmit: function() {},
     endSubmit: function() {}
-  }
+  },
+
+  removeSubactivityForm: {
+    after: {
+      remove: function(doc){
+        console.log('toaster');
+      }
+    },
+
+    onSubmit: function(insertDoc, updateDoc, currentDoc){
+      console.log('toaster');
+    },
+
+    onSuccess: function(formType, result) {
+      let doc = Session.get('process');
+      Meteor.call('rollup', doc);
+      Bert.alert('Successfully Updated');
+    },
+
+    onError: function(formType, error) {
+      Bert.alert('Something went wrong!', 'danger');
+    },
+
+    beginSubmit: function() {},
+    endSubmit: function() {}
+  },
+
 });

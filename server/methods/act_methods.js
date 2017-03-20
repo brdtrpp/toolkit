@@ -14,9 +14,9 @@ Meteor.methods({
     if (a.rollup !== result){
       Activities.update({_id: a._id}, {$set: {rollup: result}});
     }
-    
+
     var actId = a._id;
-    Meteor.call('stateRollup', actId)
+    Meteor.call('stateRollup', actId);
   },
 
   'cloneAct': function(doc) {
